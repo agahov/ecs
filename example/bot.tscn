@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://cfqethvlvrosu"]
+
+[ext_resource type="Script" uid="uid://c6hxy1lvxlupn" path="res://example/comp/position.gd" id="1_ea1gj"]
+[ext_resource type="Script" uid="uid://bvx701r01pxgm" path="res://example/comp/style.gd" id="1_lmhq6"]
+[ext_resource type="Script" uid="uid://cphjvn4rb3wem" path="res://example/comp/size.gd" id="3_7c70j"]
+[ext_resource type="Script" uid="uid://dtpvd2cq5hkmh" path="res://example/comp/render.gd" id="4_7c70j"]
+
+[node name="Bot" type="Node"]
+script = ExtResource("1_lmhq6")
+
+[node name="Position" type="Node" parent="."]
+script = ExtResource("1_ea1gj")
+metadata/_custom_type_script = "uid://cdqeftig32got"
+
+[node name="Size" type="Node" parent="."]
+script = ExtResource("3_7c70j")
+metadata/_custom_type_script = "uid://cdqeftig32got"
+
+[node name="Style" type="Node" parent="."]
+script = ExtResource("1_lmhq6")
+
+[node name="Render" type="Node" parent="."]
+script = ExtResource("4_7c70j")
