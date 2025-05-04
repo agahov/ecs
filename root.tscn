@@ -1,22 +1,131 @@
-[gd_scene load_steps=5 format=3 uid="uid://ctbylp4pfx2p6"]
+[gd_scene load_steps=15 format=3 uid="uid://ctbylp4pfx2p6"]
 
 [ext_resource type="Script" uid="uid://bfrfb57un3jd3" path="res://example/root.gd" id="1_vvh5c"]
-[ext_resource type="PackedScene" uid="uid://cfqethvlvrosu" path="res://example/bot.tscn" id="2_28aoi"]
-[ext_resource type="Script" uid="uid://bjjaj7ewqrf14" path="res://core/entity.gd" id="3_28aoi"]
-[ext_resource type="Script" uid="uid://cwj7ywnthpacm" path="res://example/system/render-system.gd" id="3_jnlp7"]
+[ext_resource type="PackedScene" uid="uid://cfqethvlvrosu" path="res://example/entity/bot.tscn" id="2_28aoi"]
+[ext_resource type="Script" uid="uid://cwj7ywnthpacm" path="res://example/system/local-render-system.gd" id="3_jnlp7"]
+[ext_resource type="Script" uid="uid://bb77quiu5hesg" path="res://example/system/track-polygon-data-gen-system.gd" id="4_tw3kd"]
+[ext_resource type="Script" uid="uid://cfatcdkhtlhy" path="res://example/system/target-triger.gd" id="5_huihk"]
+[ext_resource type="Script" uid="uid://q4mhk2lwm5rg" path="res://example/system/locomotion-system.gd" id="5_jnlp7"]
+[ext_resource type="Script" uid="uid://btuhichenli3c" path="res://example/system/move-system.gd" id="5_vyht1"]
+[ext_resource type="Script" uid="uid://dtt8vxvddhfl2" path="res://example/system/railwaynet-service.gd" id="6_l8v81"]
+[ext_resource type="PackedScene" uid="uid://maji26qjw3hg" path="res://example/entity/station.tscn" id="7_bf3um"]
+[ext_resource type="PackedScene" uid="uid://dduiqhfa6d0c0" path="res://example/entity/railway_track.tscn" id="8_huihk"]
+[ext_resource type="Script" uid="uid://blwmdwfc17llr" path="res://example/system/poligon-data-gen-system.gd" id="9_gd4vy"]
+[ext_resource type="Script" uid="uid://ceexw8brbueee" path="res://example/system/global-render-system.gd" id="10_qw60f"]
+[ext_resource type="Script" uid="uid://bgj0ejb7pdr36" path="res://example/sys/rotation_system.gd" id="11_rotation"]
+[ext_resource type="Script" uid="uid://dghc1nd2mymxe" path="res://example/sys/rotation_triger_system.gd" id="12_qwhpj"]
 
-[node name="root" type="Node2D"]
+[node name="root" type="Node2D" node_paths=PackedStringArray("systems")]
 script = ExtResource("1_vvh5c")
+systems = NodePath("Systems")
+
+[node name="Canvas" type="Node2D" parent="."]
+
+[node name="Stations" type="Node" parent="."]
+
+[node name="StationA" parent="Stations" instance=ExtResource("7_bf3um")]
+
+[node name="Position" parent="Stations/StationA" index="0"]
+pos = Vector2(100, 100)
+
+[node name="Style" parent="Stations/StationA" index="3"]
+bg_color = Color(0.583044, 0.131855, 0.311918, 1)
+
+[node name="StationB" parent="Stations" instance=ExtResource("7_bf3um")]
+
+[node name="Position" parent="Stations/StationB" index="0"]
+pos = Vector2(600, 600)
+
+[node name="Style" parent="Stations/StationB" index="3"]
+bg_color = Color(0.145438, 0.38464, 0.325399, 1)
+
+[node name="StationC" parent="Stations" instance=ExtResource("7_bf3um")]
+
+[node name="Position" parent="Stations/StationC" index="0"]
+pos = Vector2(600, 200)
+
+[node name="Style" parent="Stations/StationC" index="3"]
+bg_color = Color(0.511534, 0.124496, 0.565146, 1)
+
+[node name="Systems" type="Node" parent="."]
+
+[node name="MoveSystem" type="Node" parent="Systems"]
+script = ExtResource("5_vyht1")
+
+[node name="TargetTriger" type="Node" parent="Systems"]
+script = ExtResource("5_huihk")
+
+[node name="PolygonDataGenSystem" type="Node" parent="Systems"]
+script = ExtResource("9_gd4vy")
+
+[node name="TrackPoligonDataGenSystem" type="Node" parent="Systems"]
+script = ExtResource("4_tw3kd")
+
+[node name="GlobalRenderSystem" type="Node" parent="Systems" node_paths=PackedStringArray("canvas")]
+script = ExtResource("10_qw60f")
+canvas = NodePath("../../Canvas")
+
+[node name="LocalRenderSystem" type="Node" parent="Systems" node_paths=PackedStringArray("canvas")]
+script = ExtResource("3_jnlp7")
+canvas = NodePath("../../Canvas")
+
+[node name="RotationTriger" type="Node" parent="Systems"]
+script = ExtResource("12_qwhpj")
+
+[node name="RotationSystem" type="Node" parent="Systems"]
+script = ExtResource("11_rotation")
+
+[node name="LocomotionSystem" type="Node" parent="Systems" node_paths=PackedStringArray("railway_net_service")]
+script = ExtResource("5_jnlp7")
+railway_net_service = NodePath("../RailwayNetService")
+
+[node name="RailwayNetService" type="Node" parent="Systems"]
+script = ExtResource("6_l8v81")
+
+[node name="RailwayNet" type="Node" parent="."]
+
+[node name="RailwayTrackAB" parent="RailwayNet" instance=ExtResource("8_huihk")]
+
+[node name="Track" parent="RailwayNet/RailwayTrackAB" index="2" node_paths=PackedStringArray("node_from", "node_to")]
+node_from = NodePath("../../../Stations/StationA")
+node_to = NodePath("../../../Stations/StationB")
+
+[node name="RailwayTrackBA" parent="RailwayNet" instance=ExtResource("8_huihk")]
+
+[node name="Track" parent="RailwayNet/RailwayTrackBA" index="2" node_paths=PackedStringArray("node_from", "node_to")]
+node_from = NodePath("../../../Stations/StationB")
+node_to = NodePath("../../../Stations/StationC")
+
+[node name="RailwayTrackBA2" parent="RailwayNet" instance=ExtResource("8_huihk")]
+
+[node name="Track" parent="RailwayNet/RailwayTrackBA2" index="2" node_paths=PackedStringArray("node_from", "node_to")]
+node_from = NodePath("../../../Stations/StationC")
+node_to = NodePath("../../../Stations/StationA")
 
 [node name="Bot" parent="." instance=ExtResource("2_28aoi")]
-script = ExtResource("3_28aoi")
 
 [node name="Position" parent="Bot" index="0"]
 pos = Vector2(100, 100)
 
-[node name="Systems" type="Node" parent="."]
+[node name="Size" parent="Bot" index="1"]
+height = 50
 
-[node name="RenderSystem" type="Node" parent="Systems"]
-script = ExtResource("3_jnlp7")
+[node name="Style" parent="Bot" index="2"]
+bg_color = Color(0.851164, 0.43143, 0.0883636, 1)
 
+[node name="NeedTarget" parent="Bot" index="5" node_paths=PackedStringArray("prev_target")]
+prev_target = NodePath("../../Stations/StationA")
+
+[node name="GeometryShape" parent="Bot" index="6"]
+shape = 2
+
+[node name="Direction" parent="Bot" index="7"]
+rot_angel = 180.0
+
+[editable path="Stations/StationA"]
+[editable path="Stations/StationB"]
+[editable path="Stations/StationC"]
+[editable path="RailwayNet/RailwayTrackAB"]
+[editable path="RailwayNet/RailwayTrackBA"]
+[editable path="RailwayNet/RailwayTrackBA2"]
 [editable path="Bot"]

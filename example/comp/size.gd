@@ -1,7 +1,7 @@
 extends Component
 
 
-@export var side: int = 100
+#@export var side: int = 100
 @export var width: int = 100
 @export var height: int = 100
 

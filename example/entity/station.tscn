@@ -1,0 +1,33 @@
+[gd_scene load_steps=8 format=3 uid="uid://maji26qjw3hg"]
+
+[ext_resource type="Script" uid="uid://bjjaj7ewqrf14" path="res://core/entity.gd" id="1_2o6u4"]
+[ext_resource type="Script" uid="uid://c6hxy1lvxlupn" path="res://example/comp/position.gd" id="2_pjete"]
+[ext_resource type="Script" uid="uid://dtpvd2cq5hkmh" path="res://example/comp/polygon-render.gd" id="3_ghf3o"]
+[ext_resource type="Script" uid="uid://cphjvn4rb3wem" path="res://example/comp/size.gd" id="4_7nfc6"]
+[ext_resource type="Script" uid="uid://bvx701r01pxgm" path="res://example/comp/style.gd" id="5_ghf3o"]
+[ext_resource type="Script" uid="uid://c5vcinm1vuhjt" path="res://example/comp/geometry_shape.gd" id="6_7nfc6"]
+[ext_resource type="Script" uid="uid://nexiv753l1sj" path="res://example/comp/direction.gd" id="7_p15f2"]
+
+[node name="Station" type="Node"]
+script = ExtResource("1_2o6u4")
+
+[node name="Position" type="Node" parent="."]
+script = ExtResource("2_pjete")
+
+[node name="Render" type="Node" parent="."]
+script = ExtResource("3_ghf3o")
+
+[node name="Size" type="Node" parent="."]
+script = ExtResource("4_7nfc6")
+width = 40
+height = 40
+
+[node name="Style" type="Node" parent="."]
+script = ExtResource("5_ghf3o")
+
+[node name="GeometryShape" type="Node" parent="."]
+script = ExtResource("6_7nfc6")
+shape = 0
+
+[node name="Directon" type="Node" parent="."]
+script = ExtResource("7_p15f2")

@@ -1,8 +1,6 @@
 extends Component
 
-
-@export var pos: Vector2
-
+@export var rot_speed: float = 10.0
 
 func get_comp_name() -> String:
-	return Ecs.POSITION
+	return Ecs.ROT

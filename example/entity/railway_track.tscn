@@ -1,0 +1,24 @@
+[gd_scene load_steps=6 format=3 uid="uid://dduiqhfa6d0c0"]
+
+[ext_resource type="Script" uid="uid://bjjaj7ewqrf14" path="res://core/entity.gd" id="1_f0ixg"]
+[ext_resource type="Script" uid="uid://dtpvd2cq5hkmh" path="res://example/comp/polygon-render.gd" id="2_vg4f8"]
+[ext_resource type="Script" uid="uid://wxkqdufvdx77" path="res://example/comp/global_render.gd" id="3_mkdrw"]
+[ext_resource type="Script" uid="uid://de3n5vclqwj7a" path="res://example/comp/railwaytrack.gd" id="4_mkdrw"]
+[ext_resource type="Script" uid="uid://bvx701r01pxgm" path="res://example/comp/style.gd" id="5_a2mri"]
+
+[node name="RailwayTrack" type="Node"]
+script = ExtResource("1_f0ixg")
+metadata/_custom_type_script = "uid://bjjaj7ewqrf14"
+
+[node name="Render" type="Node" parent="."]
+script = ExtResource("2_vg4f8")
+metadata/_custom_type_script = "uid://dtpvd2cq5hkmh"
+
+[node name="GlobalRender" type="Node" parent="."]
+script = ExtResource("3_mkdrw")
+
+[node name="Track" type="Node" parent="."]
+script = ExtResource("4_mkdrw")
+
+[node name="Style" type="Node" parent="."]
+script = ExtResource("5_a2mri")
